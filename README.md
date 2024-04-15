@@ -10,7 +10,7 @@ Arch install, setups, and gotchas
 ### Set the console keyboard layout and font (live)
 for my 32''
 
-    setfont ter-118b
+    setfont ter-120b
 (fonts up to `ter-132b`)
 
 ### Connect to the internet (live)
@@ -60,11 +60,14 @@ no problems for _Linux Filesystem_, which should be the default anyway
 #### tui
 `TODO` look for it and try it out
 
+    cfdisk /dev/<the_disk_to_be_partitioned>
+`NOTE` new partition table not tried
+
 #### SWAP
 `TODO`! it'll be a swap file -> [ArchWiki - Swap#Swap_file](https://wiki.archlinux.org/title/Swap#Swap_file)
 
 ### Format the partitions
-    mkfs.fat -F32 /dev/<efi_system_partition>
+    mkfs.fat -F 32 /dev/<efi_system_partition>
     mkfs.ext4 /dev/<root_partition>
 
 ### Mount the file systems
@@ -72,8 +75,10 @@ no problems for _Linux Filesystem_, which should be the default anyway
     mount --mkdir /dev/<efi_system_partition> /mnt/boot
 
 ## Install essential packages
-    pacstrap -K /mnt base linux linux-firmware networkmanager neovim
+    pacstrap -K /mnt base linux linux-firmware networkmanager neovim 
 _need_ an editor _and_ a network manager
+
+the rest will be installed after reboot
 
 with an old-ish live iso
 
@@ -84,6 +89,7 @@ probably there better ways (surely a fresh sio is one)
 ## Configure the system
 ### Fstab
     genfstab -U /mnt >> /mnt/etc/fstab
+(or `-L` to define by labels)
 ### Chroot
     arch-chroot /mnt
 ### Time
@@ -115,7 +121,7 @@ _why so easy to miss this?_
     grub-mkconfig -o /boot/grub/grub.cfg
 `TODO`: learn GRUB customization
 
-#### bootctl
+#### systemd-boot
 `TODO`: learn and evaluate
 
 ### Reboot
@@ -140,9 +146,13 @@ To allow members of group wheel sudo access, uncomment:
     %wheel      ALL=(ALL:ALL) ALL
 ### Networking
     systemctl enable NetworkManager
-so simple but undocumented?
-
+    systemctl start NetworkManager
     nmtui
+`nmtui`, so simple but undocumented?
+
+ ### hyprland
+    pacman -S hyprland kitty gtk4
+
 
 ### development
 most will come up from nvvim `:checkhealth`, like `unzip`, `wget`, etc.
@@ -150,6 +160,7 @@ most will come up from nvvim `:checkhealth`, like `unzip`, `wget`, etc.
 some specifics
 #### rust 
     pacman -S rustup
+    rustup default stable
 in favour of `rust` + `cargo`
 #### nvm (node version manager)
     yay -S nvm
@@ -169,7 +180,7 @@ in favour of `rust` + `cargo`
 
 ### 
 
-### yay
+### yay (see paru)
     sudo pacman --needed base-devel git go
     cd ~/.config/
     mkdir yay
@@ -177,6 +188,10 @@ in favour of `rust` + `cargo`
     cd yay
     makepkg -sri
 [AUR - yay](https://aur.archlinux.org/packages/yay)
+
+### paru
+
+[AUR - paru](https://aur.archlinux.org/packages/paru)
 
 ### neovim
 #### nerd fonts
