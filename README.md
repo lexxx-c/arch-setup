@@ -150,11 +150,11 @@ To allow members of group wheel sudo access, uncomment:
     nmtui
 `nmtui`, so simple but undocumented?
 
- ### hyprland
+### hyprland
     pacman -S hyprland kitty gtk4
 
 
-### development
+### development - languages
 most will come up from nvvim `:checkhealth`, like `unzip`, `wget`, etc.
 
 some specifics
@@ -168,15 +168,28 @@ in favour of `rust` + `cargo`
     source /usr/share/nvm/nvm.sh
     nvm install --lts
 `TODO` add config to .bashrc
+
+
 #### lua
-    pacman -S luaricks
+    pacman -S luarocks
 #### go
     pacman -S go
 (also needed for yay)
 
 
 ### bluetooth
+    pacman -s --needed bluez bluez-utils
+once in the prompt
+    
+    scan on
+    pair <device_mac>
+    connect <device_mac>
+    trust <device_mac>
+    exit
+autocomplete works, use for mac addresses
 [ArchWiki - bluetooth](https://wiki.archlinux.org/title/bluetooth)
+
+[bluez](https://www.bluez.org/)
 
 ### 
 
@@ -197,6 +210,10 @@ in favour of `rust` + `cargo`
 #### nerd fonts
     pacman -S ttf-hack-nerd
 [ttf-hack-nerd](https://archlinux.org/packages/extra/any/ttf-hack-nerd/)
+
+#### dependencies
+    pacman -S --needed ripgrep fg
+
 ### Hyprland
 
 #### screen resolution
@@ -210,6 +227,16 @@ in `~/.config/hypr/hypr.conf` (based on my current monitors and layout)
 these settings are: _monitor_name, resolution, position, scaling_ 
 
 also possible to rotate with additional flags after the above
+
+### python
+#### pynvim
+    pacman -S --needed python-pynvim
+`TODO` consider changing nvim configs for pynvim
+#### pyenv
+    pacman -S --needed pyenv
+`TODO` review setup and document here
+
+
 
 
 
