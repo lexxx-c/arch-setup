@@ -179,6 +179,9 @@ in favour of `rust` + `cargo`
 
 ### bluetooth
     pacman -s --needed bluez bluez-utils
+prompt
+
+    bluetoothctl
 once in the prompt
     
     scan on
